@@ -3,13 +3,18 @@ import { JobApplication, JobStatus } from "@/types/job";
 import { Card, CardHeader, CardTitle, CardContent } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
-import { Bell, BellRing, AlertCircle } from "lucide-react";
+import { Bell, BellRing, AlertCircle, CalendarIcon, Trash2, Edit, X, Check } from "lucide-react";
 import { format, parseISO, isAfter, isBefore, addDays } from "date-fns";
 import { Badge } from "@/components/ui/badge";
 import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogFooter, DialogTrigger } from "@/components/ui/dialog";
 import { Alert, AlertDescription } from "@/components/ui/alert";
 import { cn } from "@/lib/utils";
 import { toast } from "@/components/ui/sonner";
+import { Label } from "@/components/ui/label";
+import { Textarea } from "@/components/ui/textarea";
+import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
+import { Popover, PopoverContent, PopoverTrigger } from "@/components/ui/popover";
+import { Calendar } from "@/components/ui/calendar";
 
 interface JobApplicationListProps {
   applications: JobApplication[];

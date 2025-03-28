@@ -3,7 +3,6 @@ import React, { useState } from "react";
 import Header from "@/components/Header";
 import Landing from "@/components/Landing";
 import Dashboard from "@/components/Dashboard";
-import { Toaster } from "@/components/ui/sonner";
 
 const Index = () => {
   const [showDashboard, setShowDashboard] = useState(false);
@@ -15,7 +14,6 @@ const Index = () => {
 
   return (
     <div className="min-h-screen pb-16">
-      <Toaster />
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-6 md:pt-10">
         <Header />
         

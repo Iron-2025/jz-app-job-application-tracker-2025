@@ -1,20 +1,15 @@
-
 import React, { useState } from "react";
 import { JobApplication, JobStatus } from "@/types/job";
 import { Card, CardHeader, CardTitle, CardContent } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
-import { Label } from "@/components/ui/label";
-import { Textarea } from "@/components/ui/textarea";
-import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
-import { Popover, PopoverContent, PopoverTrigger } from "@/components/ui/popover";
-import { Calendar } from "@/components/ui/calendar";
+import { Bell, BellRing, AlertCircle } from "lucide-react";
 import { format, parseISO, isAfter, isBefore, addDays } from "date-fns";
-import { CalendarIcon, Trash2, Edit, X, Check, Briefcase, Building } from "lucide-react";
 import { Badge } from "@/components/ui/badge";
 import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogFooter, DialogTrigger } from "@/components/ui/dialog";
 import { Alert, AlertDescription } from "@/components/ui/alert";
 import { cn } from "@/lib/utils";
+import { toast } from "@/components/ui/sonner";
 
 interface JobApplicationListProps {
   applications: JobApplication[];
@@ -51,6 +46,35 @@ const getFollowUpStatus = (followUpDate: string | undefined): string => {
     return "follow-up-soon";
   }
   return "";
+};
+
+const ReminderBadge = ({ followUpDate }: { followUpDate?: string }) => {
+  if (!followUpDate) return null;
+
+  const today = new Date();
+  const followUp = parseISO(followUpDate);
+
+  if (isBefore(followUp, today)) {
+    return (
+      <Badge variant="destructive" className="flex items-center gap-1">
+        <AlertCircle className="h-4 w-4" /> Overdue
+      </Badge>
+    );
+  }
+
+  if (isBefore(followUp, addDays(today, 3))) {
+    return (
+      <Badge variant="default" className="flex items-center gap-1">
+        <BellRing className="h-4 w-4" /> Follow-up Soon
+      </Badge>
+    );
+  }
+
+  return (
+    <Badge variant="outline" className="flex items-center gap-1">
+      <Bell className="h-4 w-4" /> Follow-up
+    </Badge>
+  );
 };
 
 const JobApplicationList: React.FC<JobApplicationListProps> = ({
@@ -123,13 +147,9 @@ const JobApplicationList: React.FC<JobApplicationListProps> = ({
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-4">
           {filteredApplications.map((application) => {
             const isEditing = editingApplication?.id === application.id;
-            const followUpStatus = getFollowUpStatus(application.followUpDate);
             
             return (
-              <Card 
-                key={application.id} 
-                className={cn("overflow-hidden", followUpStatus)}
-              >
+              <Card key={application.id} className="overflow-hidden">
                 {isEditing ? (
                   <CardContent className="p-4">
                     <div className="space-y-4">
@@ -282,14 +302,8 @@ const JobApplicationList: React.FC<JobApplicationListProps> = ({
                     <CardHeader className="pb-2">
                       <div className="flex justify-between items-start">
                         <div>
-                          <div className="flex items-center gap-2">
-                            <Building className="h-4 w-4" />
-                            <CardTitle className="text-lg">{application.companyName}</CardTitle>
-                          </div>
-                          <div className="flex items-center gap-2 text-muted-foreground mt-1">
-                            <Briefcase className="h-4 w-4" />
-                            <span>{application.role}</span>
-                          </div>
+                          <CardTitle className="text-lg">{application.companyName}</CardTitle>
+                          <div className="text-muted-foreground mt-1">{application.role}</div>
                         </div>
                         <div className="flex space-x-1">
                           <Button 
@@ -333,9 +347,7 @@ const JobApplicationList: React.FC<JobApplicationListProps> = ({
                           Applied: {formatDate(application.dateApplied)}
                         </Badge>
                         {application.followUpDate && (
-                          <Badge variant="outline" className={followUpStatus ? `${followUpStatus} border-0` : ""}>
-                            Follow-up: {formatDate(application.followUpDate)}
-                          </Badge>
+                          <ReminderBadge followUpDate={application.followUpDate} />
                         )}
                       </div>
                       {application.notes && (

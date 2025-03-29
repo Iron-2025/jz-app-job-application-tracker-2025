@@ -6,7 +6,7 @@ import {
 } from "recharts";
 import { JobApplication, JobStatus } from "@/types/job";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
-import { format, subDays, isWithin, parseISO } from "date-fns";
+import { format, subDays, isAfter, isBefore, parseISO } from "date-fns";
 import { 
   ChartContainer,
   ChartTooltip,
@@ -71,7 +71,7 @@ const JobStats: React.FC<JobStatsProps> = ({ applications }) => {
     const startDate = subDays(endDate, 6);
     const weekApplications = applications.filter(app => {
       const appDate = parseISO(app.dateApplied);
-      return appDate >= startDate && appDate <= endDate;
+      return isAfter(appDate, startDate) && isBefore(appDate, endDate);
     });
     
     return {

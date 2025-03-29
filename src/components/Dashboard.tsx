@@ -3,6 +3,7 @@ import React, { useState, useEffect } from "react";
 import { JobApplication } from "@/types/job";
 import JobApplicationForm from "./JobApplicationForm";
 import JobApplicationList from "./JobApplicationList";
+import JobStats from "./JobStats";
 import { saveApplications, getApplications } from "@/services/localStorage";
 import { toast } from "@/components/ui/sonner";
 import { parseISO, isBefore, addDays, format } from "date-fns";
@@ -85,6 +86,9 @@ const Dashboard: React.FC = () => {
           Keep track of all your job applications in one place. Add new applications, update statuses, and set reminders for follow-ups.
         </p>
       </div>
+      
+      {/* Add JobStats component */}
+      <JobStats applications={applications} />
       
       <JobApplicationForm onAddApplication={handleAddApplication} />
       <JobApplicationList 

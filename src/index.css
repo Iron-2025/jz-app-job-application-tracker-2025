@@ -106,3 +106,29 @@
 .follow-up-overdue {
   @apply border-l-4 border-red-500;
 }
+
+/* Gradient utilities */
+.gradient-heading {
+  @apply bg-clip-text text-transparent bg-gradient-to-r from-primary to-blue-500;
+}
+
+.gradient-card-blue {
+  @apply bg-gradient-to-br from-blue-50 to-indigo-50;
+}
+
+.gradient-card-purple {
+  @apply bg-gradient-to-br from-purple-50 to-pink-50;
+}
+
+.gradient-card-green {
+  @apply bg-gradient-to-br from-green-50 to-emerald-50;
+}
+
+.gradient-button {
+  @apply bg-gradient-to-r from-primary to-blue-600 hover:from-primary/90 hover:to-blue-700;
+}
+
+/* Card hover effects */
+.card-hover {
+  @apply transition-all duration-300 hover:shadow-lg hover:-translate-y-1;
+}

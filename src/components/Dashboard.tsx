@@ -77,6 +77,15 @@ const Dashboard: React.FC = () => {
 
   return (
     <div className="max-w-6xl mx-auto px-4">
+      <div className="mb-8 p-6 rounded-lg bg-gradient-to-r from-blue-50 to-indigo-50 border shadow-sm">
+        <h2 className="text-2xl font-bold mb-2 bg-clip-text text-transparent bg-gradient-to-r from-primary to-blue-600">
+          Job Application Tracker
+        </h2>
+        <p className="text-muted-foreground">
+          Keep track of all your job applications in one place. Add new applications, update statuses, and set reminders for follow-ups.
+        </p>
+      </div>
+      
       <JobApplicationForm onAddApplication={handleAddApplication} />
       <JobApplicationList 
         applications={applications}

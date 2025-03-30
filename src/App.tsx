@@ -15,7 +15,8 @@ const App = () => (
       <BrowserRouter>
         <Routes>
           <Route path="/" element={<Index />} />
-          <Route path="/tools/TrackMyJobs" element={<Index />} />
+          <Route path="/tools/job-application-tracker" element={<Index />} />
+          <Route path="/tools/job-application-tracker/" element={<Index />} />
           {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
           <Route path="*" element={<NotFound />} />
         </Routes>

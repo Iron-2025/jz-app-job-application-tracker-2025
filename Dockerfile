@@ -33,7 +33,7 @@ RUN mkdir -p /etc/nginx/html && \
     ln -sf /usr/share/nginx/html/favicon.ico /etc/nginx/html/tools/job-application-tracker/favicon.ico
 
 # Expose port 80
-EXPOSE 80
+EXPOSE 8900
 
 # Start nginx
 CMD ["nginx", "-g", "daemon off;"]
